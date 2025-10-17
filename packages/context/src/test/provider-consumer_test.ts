@@ -111,6 +111,9 @@ suite('context-provider', () => {
     ) as MultipleContextConsumer;
     assert.isDefined(consumer2);
 
+    await new Promise<void>(
+      (resolve) => void queueMicrotask(() => void resolve())
+    );
     assert.strictEqual(consumer.value, 1000);
     assert.strictEqual(consumer2.value, 1000);
 
@@ -130,6 +133,9 @@ suite('context-provider', () => {
     ) as OnceContextConsumer;
     assert.isDefined(consumer2);
 
+    await new Promise<void>(
+      (resolve) => void queueMicrotask(() => void resolve())
+    );
     assert.strictEqual(consumer.value, 1000);
     assert.strictEqual(consumer2.value, 1000);
 

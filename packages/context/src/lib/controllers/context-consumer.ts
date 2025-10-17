@@ -79,7 +79,7 @@ export class ContextConsumer<
   private unsubscribe?: () => void;
 
   hostConnected(): void {
-    this.dispatchRequest();
+    queueMicrotask(() => void this.dispatchRequest());
   }
 
   hostDisconnected(): void {
