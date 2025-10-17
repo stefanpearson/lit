@@ -79,6 +79,9 @@ export class ContextConsumer<
   private unsubscribe?: () => void;
 
   hostConnected(): void {
+    // Defer the initial request to avoid race conditions where a provider has not yet been connected to the document.
+    // This is a fast path where providers and consumers are connected to the document at the same time, without relying on
+    // a context root to re-dispatch uncaught context requests to the correct provider whilst a batch connection is in progress.
     queueMicrotask(() => void this.dispatchRequest());
   }
 
